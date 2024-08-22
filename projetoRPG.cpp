@@ -27,7 +27,7 @@ class Monster {
 
 int main(){
 
-    setlocale(LC_ALL, "portuguese");
+    setlocale(LC_ALL, "Portuguese");
     Protagonist protagonist;
     string name;
     cout << "Em um mundo governado pelo cruel Império de Valgard, onde a liberdade foi suprimida e a justiça é apenas uma lembrança, pequenos grupos de resistência começam a se formar." << endl;
