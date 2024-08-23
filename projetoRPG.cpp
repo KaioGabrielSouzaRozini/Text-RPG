@@ -75,14 +75,6 @@ class Piece {
 };
 
 
-
-
-
-    
-    
-
-
-
 int main(){
 
     setlocale(LC_ALL, "Portuguese");
@@ -106,11 +98,10 @@ int main(){
     Piece paw1, paw2, paw3, paw4, paw5, paw6, paw7, paw8;
     Piece paws[8] = {paw1, paw2, paw3, paw4, paw5, paw6, paw7, paw8};
     
-    paws[0].setPiece("paw", 1, 1 * 10, 1 * 5);
+    //paw1.setPiece("paw", 1, 1 * 10, 1 * 5);
     for(int i = 0; i < 8; i++){
         paws[i].setPiece("paw", i + 1, (i + 1) * 10, (i + 1) * 5);
-        cout << i << endl;
     }
     
-    cout << paw3.name;
+    cout << paws[1].name << endl << paws[1].level << endl << paws[1].health << endl << paws[1].damage;
 }
