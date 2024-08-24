@@ -1,7 +1,7 @@
 #include <iostream>
 #include <locale.h>
 #include <unistd.h>
-
+#include <array> 
 
 using namespace  std;
 
@@ -66,6 +66,7 @@ class Piece {
     int level;
     int health;
     int damage;
+
     void setPiece(string newName, int newLevel, int newHealth, int newDamage) {
          name = newName;
          level = newLevel;
@@ -73,6 +74,13 @@ class Piece {
          damage = newDamage;
          }
 };
+
+void setPieces(Piece pieces[], string name, int level, int health, int damage, int variant1, int variant2){
+    int length = sizeof(pieces);
+    for(int i = 0; i < length; i++){
+        pieces[i].setPiece(name, i + level, ((i + 1) * health) + variant1, ((i + 1) * damage) + variant2);
+    }
+}
 
 
 int main(){
@@ -94,14 +102,24 @@ int main(){
     cout << "\x1B[2J\x1B[H";
     
     
-    //Comecando jornada
-    Piece paw1, paw2, paw3, paw4, paw5, paw6, paw7, paw8;
+    //Construir inimigos
+    Piece paw1, paw2, paw3, paw4, paw5, paw6, paw7, paw8, bishop1, bishop2, knight1, knight2, rook1, rook2, queen, king;
     Piece paws[8] = {paw1, paw2, paw3, paw4, paw5, paw6, paw7, paw8};
+    Piece bishops[2] = {bishop1, bishop2};
+    Piece knights[2] = {knight1, knight2};
+    Piece rooks[2] = {rook1, rook2};
     
-    //paw1.setPiece("paw", 1, 1 * 10, 1 * 5);
-    for(int i = 0; i < 8; i++){
-        paws[i].setPiece("paw", i + 1, (i + 1) * 10, (i + 1) * 5);
-    }
-    
-    cout << paws[1].name << endl << paws[1].level << endl << paws[1].health << endl << paws[1].damage;
+    setPieces(paws, "paw", 1, 10, 5, 1, 1);
+    setPieces(bishops, "bishop", 3, 100, 30, 50, 0);
+    setPieces(knights, "knight", 3, 50, 30, 50, 30);
+    setPieces(rooks, "rook", 5, 80, 40, 100, 40);
+
+    queen.setPiece("queen", 99, 500, 200);
+
+    king.setPiece("King", 99, 1, 1);
+
+    cout << paws[3].name << endl;
+    cout << paws[3].level << endl;
+    cout << paws[3].health << endl;
+    cout << paws[3].damage << endl;
 }
