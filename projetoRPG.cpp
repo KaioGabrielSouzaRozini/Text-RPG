@@ -12,6 +12,7 @@ class Protagonist {
     int health;
     int maxHealth;
     int damage;
+    bool blocking;
 
     void setProtagonist(string newName) {
          name = newName;
@@ -19,6 +20,7 @@ class Protagonist {
          health = 100;
          maxHealth = 100;
          damage = 10;
+         blocking = false;
          }
          
     void takeDamege(int damage){
@@ -30,7 +32,12 @@ class Protagonist {
         maxHealth += 50;
         health += 50;
     }
-    
+    void heal(){
+        health += level * 10;
+        if(health > maxHealth){
+            health = maxHealth;
+        }
+    }
     
 };
 
@@ -75,11 +82,12 @@ class Piece {
     void takeDamege(int damage){
         health -= damage;
     }
+    
 };
 
 void setPieces(Piece pieces[], string name, int level, int health, int damage, int variant1, int variant2){
     int length;
-    if(name == "Pe„o"){
+    if(name == "Pe√£o"){
         length = 8;
     } else {
         length = 2;
@@ -89,27 +97,53 @@ void setPieces(Piece pieces[], string name, int level, int health, int damage, i
     }
 }
 
-void combat(Protagonist me, Piece enemy){
+void enemyCombat(Protagonist &prot, Piece &piec){
+    
+    cout << "O inimigo esta te atacando!";
+    sleep(1);
+    if(prot.blocking == true){
+        cout << "O ataque foi bloqueado";
+        prot.blocking = false;
+    } else {
+        cout << "\nVoce recebeu " << piec.damage << " de dano";
+        prot.takeDamege(piec.damage);
+    }
+    
+    sleep(2);
+    cout << "\x1B[2J\x1B[H";
+}
+
+void combat(Protagonist &me, Piece &enemy){
     int playerAtack;
     if(me.health > 0 && enemy.health > 0){
         
         bool repeat;
         do {
             repeat = false;
-            cout << "\n";
+            cout << "\n\n";
             cout << "1. Atacar\n";
             cout << "2. Defender\n";
             cout << "3. Correr!\n";
             cout << "\n";
             cin >> playerAtack;
 
+            int i  = rand() % 100 + 1;
                 switch (playerAtack){
                 case 1:
                     cout << "Atacando!";
+                    sleep(1);
+                    cout << "\nVoce deu " << me.damage << " de dano no inimigo!";
                     enemy.takeDamege(me.damage);     
                     break;
                 case 2:
                     cout << "Defendendo";
+                    sleep(1);
+                    if(i >= 50){
+                        me.blocking = true;
+                    }
+                        cout << "\nvoce tambem se cura em " << 10 * me.level;
+                        me.heal();
+                        sleep(1);
                     break;
                 case 3:
                     cout << "Fugindo!!!";
@@ -126,23 +160,31 @@ void combat(Protagonist me, Piece enemy){
         while(repeat);
         
     }
-    cout << enemy.health;
+    
 }
 
-void combatStats(Protagonist protag, Piece piec){
+void combatStats(Protagonist &protag, Piece &piec){
         cout << "Entrando em combate...";
         sleep(1);
         cout << "\x1B[2J\x1B[H";
-        cout << "VocÍ esta contra: " << piec.name;
+        cout << "Voc√™ esta contra: " << piec.name;
         sleep(1);
         cout << "\x1B[2J\x1B[H";
-    //while(protag.health > 0 && piec.health > 0){
-        cout << "Nome: " << protag.name << "        |       Nome da peÁa: " << piec.name << "\nNivel: " << protag.level << "          |       Nivel da peÁa: " << piec.level 
-        << "\nVida: " << protag.health << "         |       Vida da peÁa: " << piec.health;
+    while(protag.health > 0 && piec.health > 0){
+        cout << "Nome: " << protag.name << "        |       Nome da peca: " << piec.name << "\nNivel: " << protag.level << "          |       Nivel da peca: " << piec.level 
+        << "\nVida: " << protag.health << "         |       Vida da peca: " << piec.health;
 
         combat(protag, piec);
-
-    //}
+        if(piec.health > 0){
+            enemyCombat(protag, piec);
+        }
+        
+    }
+    if(protag.health > 0){
+        cout << "Parabens voce venceu!";
+    } else {
+        cout << "Voce foi de dormes :(";
+    }
     
 }
 
@@ -153,7 +195,7 @@ int main(){
     //Contando historia e criando personagem
     Protagonist protagonist;
     string name;
-    cout << "Uma batalha foi travada, Brancas VS Pretas, foi uma guerra devastadora que terminou em 77 movimentos, todas as peÁas pretas foram mortas exceto por vocÍ, o rei preto\n Agora em um mundo governado pelo cruel Rei das PeÁas Brancas, onde a liberdade foi suprimida e a justiÁa È apenas uma lembranÁa.\nDeterminado a minar o poder do ImpÈrio e restaurar a liberdade ao continente de Xadrez.\nSua miss„o È clara: desafiar a tirania e um dia, enfrentar o prÛprio Rei Branco.\nO destino do Xadrez depende de suas aÁıes." << endl;
+    cout << "Uma batalha foi travada, Brancas VS Pretas, foi uma guerra devastadora que terminou em 77 movimentos, todas as pecas pretas foram mortas exceto por voce, o rei preto\n Agora em um mundo governado pelo cruel Rei das Pecas Brancas, onde a liberdade foi suprimida e a justica e apenas uma lembranca.\nDeterminado a minar o poder do Imperio e restaurar a liberdade ao continente de Xadrez.\nSua missao e clara: desafiar a tirania e um dia, enfrentar o proprio Rei Branco.\nO destino do Xadrez depende de suas acoes." << endl;
     //sleep(3);
     cout << "Qual o seu nome ?" << endl;
     cin >> name;
@@ -167,12 +209,13 @@ int main(){
     
     //Construir inimigos
     Piece paw1, paw2, paw3, paw4, paw5, paw6, paw7, paw8, bishop1, bishop2, knight1, knight2, rook1, rook2, queen, king;
+
     Piece paws[8] = {paw1, paw2, paw3, paw4, paw5, paw6, paw7, paw8};
     Piece bishops[2] = {bishop1, bishop2};
     Piece knights[2] = {knight1, knight2};
     Piece rooks[2] = {rook1, rook2};
     
-    setPieces(paws, "Pe„o", 1, 10, 5, 1, 1);
+    setPieces(paws, "Peao", 1, 10, 5, 1, 1);
     setPieces(bishops, "Bispo", 3, 100, 30, 50, 0);
     setPieces(knights, "Cavalo", 3, 50, 30, 50, 30);
     setPieces(rooks, "Torre", 5, 80, 40, 100, 40);
@@ -181,6 +224,7 @@ int main(){
 
     king.setPiece("Rei", 99, 1, 1);
 
-    //combatStats(protagonist, queen);
+    combatStats(protagonist, paws[0]);
+
 
 }
