@@ -33,9 +33,7 @@ class Protagonist {
     
     
 };
-void combat(){
-    
-}
+
 
 void moving() {
     int choice;
@@ -73,32 +71,97 @@ class Piece {
          health = newHealth;
          damage = newDamage;
          }
+
+    void takeDamege(int damage){
+        health -= damage;
+    }
 };
 
 void setPieces(Piece pieces[], string name, int level, int health, int damage, int variant1, int variant2){
-    int length = sizeof(pieces);
+    int length;
+    if(name == "Peão"){
+        length = 8;
+    } else {
+        length = 2;
+    }
     for(int i = 0; i < length; i++){
         pieces[i].setPiece(name, i + level, ((i + 1) * health) + variant1, ((i + 1) * damage) + variant2);
     }
 }
 
+void combat(Protagonist me, Piece enemy){
+    int playerAtack;
+    if(me.health > 0 && enemy.health > 0){
+        
+        bool repeat;
+        do {
+            repeat = false;
+            cout << "\n";
+            cout << "1. Atacar\n";
+            cout << "2. Defender\n";
+            cout << "3. Correr!\n";
+            cout << "\n";
+            cin >> playerAtack;
+
+                switch (playerAtack){
+                case 1:
+                    cout << "Atacando!";
+                    enemy.takeDamege(me.damage);     
+                    break;
+                case 2:
+                    cout << "Defendendo";
+                    break;
+                case 3:
+                    cout << "Fugindo!!!";
+                    break;
+                default:
+                cout << "Comando invalido!";
+                repeat = true;
+                break;
+            }
+            sleep(2);
+            cout << "\x1B[2J\x1B[H";
+
+        }
+        while(repeat);
+        
+    }
+    cout << enemy.health;
+}
+
+void combatStats(Protagonist protag, Piece piec){
+        cout << "Entrando em combate...";
+        sleep(1);
+        cout << "\x1B[2J\x1B[H";
+        cout << "Você esta contra: " << piec.name;
+        sleep(1);
+        cout << "\x1B[2J\x1B[H";
+    //while(protag.health > 0 && piec.health > 0){
+        cout << "Nome: " << protag.name << "        |       Nome da peça: " << piec.name << "\nNivel: " << protag.level << "          |       Nivel da peça: " << piec.level 
+        << "\nVida: " << protag.health << "         |       Vida da peça: " << piec.health;
+
+        combat(protag, piec);
+
+    //}
+    
+}
 
 int main(){
 
-    setlocale(LC_ALL, "Portuguese");
+    setlocale(LC_ALL, "Portuguese_Brazil");
     
     //Contando historia e criando personagem
     Protagonist protagonist;
     string name;
-    cout << "Uma batalha foi travada, Brancas VS Pretas, foi uma guerra devastadora que terminou em 77 movimentos, todas as peÃ§as pretas foram mortas exeto por vocÃª, o rei preto\n Agora em um mundo governado pelo cruel Rei das PeÃ§as Brancas, onde a liberdade foi suprimida e a justiÃ§a Ã© apenas uma lembranÃ§a.\nDeterminado a minar o poder do ImpÃ©rio e restaurar a liberdade ao continente de Xadrez.\nSua missÃ£o Ã© clara: desafiar a tirania e um dia, enfrentar o prÃ³prio Rei Branco.\nO destino do Xadrez depende de suas aÃ§Ãµes." << endl;
-    sleep(3);
+    cout << "Uma batalha foi travada, Brancas VS Pretas, foi uma guerra devastadora que terminou em 77 movimentos, todas as peças pretas foram mortas exceto por você, o rei preto\n Agora em um mundo governado pelo cruel Rei das Peças Brancas, onde a liberdade foi suprimida e a justiça é apenas uma lembrança.\nDeterminado a minar o poder do Império e restaurar a liberdade ao continente de Xadrez.\nSua missão é clara: desafiar a tirania e um dia, enfrentar o próprio Rei Branco.\nO destino do Xadrez depende de suas ações." << endl;
+    //sleep(3);
     cout << "Qual o seu nome ?" << endl;
     cin >> name;
     protagonist.setProtagonist(name);
-    sleep(1);
+    //sleep(1);
     cout << "\x1B[2J\x1B[H";
     cout << "Nome: " << protagonist.name << endl << "Nivel: " << protagonist.level << endl << "Vida: " << protagonist.health << endl;
-    sleep(2);
+    //sleep(2);
     cout << "\x1B[2J\x1B[H";
     
     
@@ -109,17 +172,15 @@ int main(){
     Piece knights[2] = {knight1, knight2};
     Piece rooks[2] = {rook1, rook2};
     
-    setPieces(paws, "paw", 1, 10, 5, 1, 1);
-    setPieces(bishops, "bishop", 3, 100, 30, 50, 0);
-    setPieces(knights, "knight", 3, 50, 30, 50, 30);
-    setPieces(rooks, "rook", 5, 80, 40, 100, 40);
+    setPieces(paws, "Peão", 1, 10, 5, 1, 1);
+    setPieces(bishops, "Bispo", 3, 100, 30, 50, 0);
+    setPieces(knights, "Cavalo", 3, 50, 30, 50, 30);
+    setPieces(rooks, "Torre", 5, 80, 40, 100, 40);
 
-    queen.setPiece("queen", 99, 500, 200);
+    queen.setPiece("Rainha", 99, 500, 200);
 
-    king.setPiece("King", 99, 1, 1);
+    king.setPiece("Rei", 99, 1, 1);
 
-    cout << paws[3].name << endl;
-    cout << paws[3].level << endl;
-    cout << paws[3].health << endl;
-    cout << paws[3].damage << endl;
+    //combatStats(protagonist, queen);
+
 }
