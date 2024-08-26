@@ -66,7 +66,7 @@ class Piece {
 
 void setPieces(Piece* pieces[], string name, int level, int health, int damage, int variant1, int variant2){
     int length;
-    if(name == "Peão"){
+    if(name == "Peao"){
         length = 8;
     } else {
         length = 2;
@@ -173,30 +173,37 @@ void combatStats(Protagonist &protag, Piece &piec){
     
 }
 
-//Piece[] &paws, Piece[] &bishops, Piece[] &knights, Piece[] &rooks
-void moving(Protagonist &protagonist, Piece* pieces[]) {
+void moving(Protagonist &protagonist, Piece &piece) {
     int choice;
-    cout << "1. Ir ao combate\n";
-    cout << "2. Descansar\n";
-    cout << "3. treinar\n\n";
     
-    cin >> choice;
-    int i  = rand() % 100;
-    switch(choice){
-        case 1:
-            cout << "Andando...";
-            sleep(2);
-            if(i > 0 && i <= 33){
-                
-            }
-            break;
-        case 2:
-            cout << "Descansando...";
-            break;
-        case 3:
-            cout << "treinando...";
-            break;
-    }
+        cout << "1. Ir ao combate\n";
+        cout << "2. Descansar\n";
+        cout << "3. treinar\n\n";
+        
+        cin >> choice;
+        int i  = rand() % 4;
+        
+        switch(choice){
+            case 1:
+                cout << "Andando...";
+                sleep(2);
+                if(i == 0){
+                    cout << "Voce encontrou um inimigo!";
+                    combatStats(protagonist, piece);
+                } else if (i == 1){
+                    cout << "Voce encontrou um item!";
+                } else {
+                    cout << "Nada acontece feijoada";
+                }
+                cout << i;
+                break;
+            case 2:
+                cout << "Descansando...";
+                break;
+            case 3:
+                cout << "treinando...";
+                break;
+        }
 }
 
 int main(){
@@ -244,7 +251,7 @@ int main(){
     Piece* knights[2] = {pknight1, pknight2};
     Piece* rooks[2] = {prook1, prook2};
     
-    Piece* allPieces[16] = {ppaw1, ppaw2, ppaw3, ppaw4, ppaw5, ppaw6, ppaw7, ppaw8, pbishop1, pbishop2, pknight1, pknight2, prook1, prook2};
+    Piece* allPieces[14] = {ppaw1, ppaw2, ppaw3, ppaw4, ppaw5, ppaw6, ppaw7, ppaw8, pbishop1, pbishop2, pknight1, pknight2, prook1, prook2};
     
     setPieces(paws, "Peao", 1, 10, 5, 1, 1);
     
@@ -256,7 +263,13 @@ int main(){
 
     king.setPiece("Rei", 99, 1, 1);
     
-    
-    moving(protagonist, allPieces);
+    bool final;
+    do{
+        final = true;
+        int j  = rand() % 14;
+        
+        moving(protagonist, allPieces[j]);
+    } while(final);
+    cout << allPieces[11]->name;
 
 }
