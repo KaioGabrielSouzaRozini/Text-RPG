@@ -25,7 +25,7 @@ class Protagonist {
          running = false;
      }
          
-    void takeDamege(int damage){
+    void takeDamage(int damage){
         health -= damage;
     }
     
@@ -108,7 +108,7 @@ void enemyCombat(Protagonist &prot, Piece &piec){
         prot.blocking = false;
     } else {
         cout << "\nVoce recebeu " << piec.damage << " de dano";
-        prot.takeDamege(piec.damage);
+        prot.takeDamage(piec.damage);
     }
     
     sleep(2);
@@ -180,13 +180,14 @@ void combatStats(Protagonist &protag, Piece &piec){
         << "\nVida: " << protag.health << "         |       Vida da peca: " << piec.health;
 
         combat(protag, piec);
-        if(piec.health > 0){
+        if(piec.health > 0 && protag.running == false){
             enemyCombat(protag, piec);
         }
         
     }
-    
-    if(protag.health > 0){
+    if(protag.health > 0 && protag.running == true){
+        cout << "com sorte voce escapou com vida";
+    } else if(protag.health > 0 && protag.running == false){
         cout << "Parabens voce venceu!";
     } else {
         cout << "Voce foi de dormes :(";
