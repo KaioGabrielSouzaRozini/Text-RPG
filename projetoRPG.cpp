@@ -13,6 +13,7 @@ class Protagonist {
     int maxHealth;
     int damage;
     bool blocking;
+    bool running;
 
     void setProtagonist(string newName) {
          name = newName;
@@ -21,7 +22,8 @@ class Protagonist {
          maxHealth = 100;
          damage = 10;
          blocking = false;
-         }
+         running = false;
+     }
          
     void takeDamege(int damage){
         health -= damage;
@@ -147,6 +149,9 @@ void combat(Protagonist &me, Piece &enemy){
                     break;
                 case 3:
                     cout << "Fugindo!!!";
+                    me.running = true;
+                    cout << "\n seu inimigo consegue lhe acertar um ultimo golpe antes de fugir, voce recebe " << enemy.damage / 2 << " de dano";
+                    me.takeDamage(enemy.damage / 2);
                     break;
                 default:
                 cout << "Comando invalido!";
@@ -170,7 +175,7 @@ void combatStats(Protagonist &protag, Piece &piec){
         cout << "Você esta contra: " << piec.name;
         sleep(1);
         cout << "\x1B[2J\x1B[H";
-    while(protag.health > 0 && piec.health > 0){
+    while(protag.health > 0 && piec.health > 0 && protag.running == false){
         cout << "Nome: " << protag.name << "        |       Nome da peca: " << piec.name << "\nNivel: " << protag.level << "          |       Nivel da peca: " << piec.level 
         << "\nVida: " << protag.health << "         |       Vida da peca: " << piec.health;
 
@@ -180,6 +185,7 @@ void combatStats(Protagonist &protag, Piece &piec){
         }
         
     }
+    
     if(protag.health > 0){
         cout << "Parabens voce venceu!";
     } else {
