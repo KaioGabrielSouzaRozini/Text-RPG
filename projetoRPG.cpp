@@ -44,29 +44,6 @@ class Protagonist {
 };
 
 
-void moving() {
-    int choice;
-    cout << "1. Ir ao combate\n";
-    cout << "2. Descansar\n";
-    cout << "3. treinar\n\n";
-    
-    cin >> choice;
-    
-    switch(choice){
-        case 1:
-            cout << "Andando...";
-            sleep(2);
-            
-            break;
-        case 2:
-            cout << "Tuesday";
-            break;
-        case 3:
-            cout << "Wednesday";
-            break;
-    }
-}
-
 class Piece {
   public:
     string name;   
@@ -87,7 +64,7 @@ class Piece {
     
 };
 
-void setPieces(Piece pieces[], string name, int level, int health, int damage, int variant1, int variant2){
+void setPieces(Piece* pieces[], string name, int level, int health, int damage, int variant1, int variant2){
     int length;
     if(name == "Peão"){
         length = 8;
@@ -95,7 +72,7 @@ void setPieces(Piece pieces[], string name, int level, int health, int damage, i
         length = 2;
     }
     for(int i = 0; i < length; i++){
-        pieces[i].setPiece(name, i + level, ((i + 1) * health) + variant1, ((i + 1) * damage) + variant2);
+        pieces[i]->setPiece(name, i + level, ((i + 1) * health) + variant1, ((i + 1) * damage) + variant2);
     }
 }
 
@@ -192,7 +169,34 @@ void combatStats(Protagonist &protag, Piece &piec){
     } else {
         cout << "Voce foi de dormes :(";
     }
+    protag.running = false;
     
+}
+
+//Piece[] &paws, Piece[] &bishops, Piece[] &knights, Piece[] &rooks
+void moving(Protagonist &protagonist, Piece* pieces[]) {
+    int choice;
+    cout << "1. Ir ao combate\n";
+    cout << "2. Descansar\n";
+    cout << "3. treinar\n\n";
+    
+    cin >> choice;
+    int i  = rand() % 100;
+    switch(choice){
+        case 1:
+            cout << "Andando...";
+            sleep(2);
+            if(i > 0 && i <= 33){
+                
+            }
+            break;
+        case 2:
+            cout << "Descansando...";
+            break;
+        case 3:
+            cout << "treinando...";
+            break;
+    }
 }
 
 int main(){
@@ -216,13 +220,34 @@ int main(){
     
     //Construir inimigos
     Piece paw1, paw2, paw3, paw4, paw5, paw6, paw7, paw8, bishop1, bishop2, knight1, knight2, rook1, rook2, queen, king;
+    
+    Piece* ppaw1 = &paw1;
+    Piece* ppaw2 = &paw2;
+    Piece* ppaw3 = &paw3;
+    Piece* ppaw4 = &paw4;
+    Piece* ppaw5 = &paw5;
+    Piece* ppaw6 = &paw6;
+    Piece* ppaw7 = &paw7;
+    Piece* ppaw8 = &paw8;
+    
+    Piece* pbishop1 = &bishop1;
+    Piece* pbishop2 = &bishop2;
+    
+    Piece* pknight1 = &knight1;
+    Piece* pknight2 = &knight2;
+    
+    Piece* prook1 = &rook1;
+    Piece* prook2 = &rook2;
 
-    Piece paws[8] = {paw1, paw2, paw3, paw4, paw5, paw6, paw7, paw8};
-    Piece bishops[2] = {bishop1, bishop2};
-    Piece knights[2] = {knight1, knight2};
-    Piece rooks[2] = {rook1, rook2};
+    Piece* paws[8] = {ppaw1, ppaw2, ppaw3, ppaw4, ppaw5, ppaw6, ppaw7, ppaw8};
+    Piece* bishops[2] = {pbishop1, pbishop2};
+    Piece* knights[2] = {pknight1, pknight2};
+    Piece* rooks[2] = {prook1, prook2};
+    
+    Piece* allPieces[16] = {ppaw1, ppaw2, ppaw3, ppaw4, ppaw5, ppaw6, ppaw7, ppaw8, pbishop1, pbishop2, pknight1, pknight2, prook1, prook2};
     
     setPieces(paws, "Peao", 1, 10, 5, 1, 1);
+    
     setPieces(bishops, "Bispo", 3, 100, 30, 50, 0);
     setPieces(knights, "Cavalo", 3, 50, 30, 50, 30);
     setPieces(rooks, "Torre", 5, 80, 40, 100, 40);
@@ -230,8 +255,8 @@ int main(){
     queen.setPiece("Rainha", 99, 500, 200);
 
     king.setPiece("Rei", 99, 1, 1);
-
-    combatStats(protagonist, paws[0]);
-
+    
+    
+    moving(protagonist, allPieces);
 
 }
