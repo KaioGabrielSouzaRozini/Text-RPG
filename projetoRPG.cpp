@@ -2,6 +2,8 @@
 #include <locale.h>
 #include <unistd.h>
 #include <array> 
+#include <cstdlib> 
+#include <time.h> 
 
 using namespace  std;
 
@@ -35,7 +37,7 @@ class Protagonist {
         health += 50;
     }
     void heal(){
-        health += level * 10;
+        health += level * 30;
         if(health > maxHealth){
             health = maxHealth;
         }
@@ -163,9 +165,16 @@ void combatStats(Protagonist &protag, Piece &piec){
         
     }
     if(protag.health > 0 && protag.running == true){
-        cout << "com sorte voce escapou com vida";
+        cout << "com sorte voce escapou com vida\n";
+        sleep(2);
+        cout << "\x1B[2J\x1B[H";
     } else if(protag.health > 0 && protag.running == false){
-        cout << "Parabens voce venceu!";
+        cout << "Parabens voce venceu!\n";
+        sleep(1);
+        protag.levelUp();
+        cout << "Voce subiu de nivel!\n";
+        sleep(2);
+        cout << "\x1B[2J\x1B[H";
     } else {
         cout << "Voce foi de dormes :(";
     }
@@ -176,32 +185,43 @@ void combatStats(Protagonist &protag, Piece &piec){
 void moving(Protagonist &protagonist, Piece &piece) {
     int choice;
     
-        cout << "1. Ir ao combate\n";
+        cout << "1. Andar por ai\n";
         cout << "2. Descansar\n";
         cout << "3. treinar\n\n";
         
         cin >> choice;
-        int i  = rand() % 4;
+        int i  = rand() % 3;
         
         switch(choice){
             case 1:
-                cout << "Andando...";
+                cout << "Andando..." << endl;
                 sleep(2);
-                if(i == 0){
+                if(i >= 2){
                     cout << "Voce encontrou um inimigo!";
                     combatStats(protagonist, piece);
                 } else if (i == 1){
                     cout << "Voce encontrou um item!";
+                    int item = rand() % 10 + 1;
+                    protagonist.damage += item;
+                    cout << "seu dano aumentou em " << item;
+                    sleep(1);
+                    cout << "\x1B[2J\x1B[H";
                 } else {
                     cout << "Nada acontece feijoada";
+                    sleep(1);
+                    cout << "\x1B[2J\x1B[H";
                 }
-                cout << i;
                 break;
             case 2:
-                cout << "Descansando...";
+                cout << "Descansando...\n";
+                protagonist.heal();
+                sleep(1);
+                cout << "Voce se curou em " << protagonist.level * 30 << " pontos de vida\n";
+                sleep(2);
+                cout << "\x1B[2J\x1B[H";
                 break;
             case 3:
-                cout << "treinando...";
+                cout << "treinando...\n";
                 break;
         }
 }
@@ -209,6 +229,8 @@ void moving(Protagonist &protagonist, Piece &piece) {
 int main(){
 
     setlocale(LC_ALL, "Portuguese_Brazil");
+
+    srand(time(0));
     
     //Contando historia e criando personagem
     Protagonist protagonist;
@@ -251,8 +273,6 @@ int main(){
     Piece* knights[2] = {pknight1, pknight2};
     Piece* rooks[2] = {prook1, prook2};
     
-    Piece* allPieces[14] = {ppaw1, ppaw2, ppaw3, ppaw4, ppaw5, ppaw6, ppaw7, ppaw8, pbishop1, pbishop2, pknight1, pknight2, prook1, prook2};
-    
     setPieces(paws, "Peao", 1, 10, 5, 1, 1);
     
     setPieces(bishops, "Bispo", 3, 100, 30, 50, 0);
@@ -262,14 +282,19 @@ int main(){
     queen.setPiece("Rainha", 99, 500, 200);
 
     king.setPiece("Rei", 99, 1, 1);
+
+    Piece allPieces[14] = {paw1, paw2, paw3, paw4, paw5, paw6, paw7, paw8, bishop1, bishop2, knight1, knight2, rook1, rook2};
+    
     
     bool final;
     do{
         final = true;
-        int j  = rand() % 14;
+        int j;
+        do{
+            j  = rand() % 14;
+        } while(allPieces[j].health < 0);
         
         moving(protagonist, allPieces[j]);
     } while(final);
-    cout << allPieces[11]->name;
 
 }
