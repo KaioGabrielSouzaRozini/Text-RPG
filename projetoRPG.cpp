@@ -33,11 +33,11 @@ class Protagonist {
     
     void levelUp(){
         level += 1;
-        maxHealth += 50;
-        health += 50;
+        maxHealth += 30;
+        health += 30;
     }
     void heal(){
-        health += level * 30;
+        health += level * 20;
         if(health > maxHealth){
             health = maxHealth;
         }
@@ -190,25 +190,23 @@ void moving(Protagonist &protagonist, Piece &piece) {
         cout << "3. treinar\n\n";
         
         cin >> choice;
-        int i  = rand() % 3;
+        int i  = rand() % 100 + 1;
         
         switch(choice){
             case 1:
                 cout << "Andando..." << endl;
                 sleep(2);
-                if(i >= 2){
-                    cout << "Voce encontrou um inimigo!";
+                if(i >= 30){
+                    cout << "Voce encontrou um inimigo!\n";
+                    sleep(1);
                     combatStats(protagonist, piece);
-                } else if (i == 1){
-                    cout << "Voce encontrou um item!";
+                } else {
+                    cout << "Voce encontrou um item!\n";
+                    sleep(1);
                     int item = rand() % 10 + 1;
                     protagonist.damage += item;
                     cout << "seu dano aumentou em " << item;
-                    sleep(1);
-                    cout << "\x1B[2J\x1B[H";
-                } else {
-                    cout << "Nada acontece feijoada";
-                    sleep(1);
+                    sleep(2);
                     cout << "\x1B[2J\x1B[H";
                 }
                 break;
@@ -216,7 +214,7 @@ void moving(Protagonist &protagonist, Piece &piece) {
                 cout << "Descansando...\n";
                 protagonist.heal();
                 sleep(1);
-                cout << "Voce se curou em " << protagonist.level * 30 << " pontos de vida\n";
+                cout << "Voce se curou em " << protagonist.level * 20 << " pontos de vida\n";
                 sleep(2);
                 cout << "\x1B[2J\x1B[H";
                 break;
@@ -273,7 +271,7 @@ int main(){
     Piece* knights[2] = {pknight1, pknight2};
     Piece* rooks[2] = {prook1, prook2};
     
-    setPieces(paws, "Peao", 1, 10, 5, 1, 1);
+    setPieces(paws, "Peao",  1, 10, 5, 1, 1);
     
     setPieces(bishops, "Bispo", 3, 100, 30, 50, 0);
     setPieces(knights, "Cavalo", 3, 50, 30, 50, 30);
