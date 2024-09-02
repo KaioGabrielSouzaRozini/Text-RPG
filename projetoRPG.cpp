@@ -16,6 +16,7 @@ class Protagonist {
     int damage;
     bool blocking;
     bool running;
+    int xp;
 
     void setProtagonist(string newName) {
          name = newName;
@@ -25,16 +26,33 @@ class Protagonist {
          damage = 10;
          blocking = false;
          running = false;
+         xp = 0;
      }
          
     void takeDamage(int damage){
         health -= damage;
     }
     
-    void levelUp(){
-        level += 1;
-        maxHealth += 30;
-        health += 30;
+    void levelUp(string name){
+
+        if(name == "Peao"){
+            xp += 50;
+            cout << "Voce ganhou 50 de xp!\n";
+            sleep(1);
+        } else {
+            xp += 100;
+            cout << "Voce ganhou 100 de xp!\n";
+            sleep(1);
+        }
+        
+        if(xp >= 100){
+            level += 1;
+            maxHealth += 30;
+            health += 30;
+            xp = 0;
+            cout << "Voce subiu de nivel!\n";
+        }
+        
     }
     void heal(){
         health += level * 20;
@@ -171,8 +189,7 @@ void combatStats(Protagonist &protag, Piece &piec){
     } else if(protag.health > 0 && protag.running == false){
         cout << "Parabens voce venceu!\n";
         sleep(1);
-        protag.levelUp();
-        cout << "Voce subiu de nivel!\n";
+        protag.levelUp(piec.name);
         sleep(2);
         cout << "\x1B[2J\x1B[H";
     } else {
@@ -184,8 +201,10 @@ void combatStats(Protagonist &protag, Piece &piec){
 
 void moving(Protagonist &protagonist, Piece &piece) {
     int choice;
+    cout << "Nome: " << protagonist.name  << "\nNivel: " << protagonist.level
+        << "\nVida: " << protagonist.health <<  "\nDano: " << protagonist.damage << endl;
     
-        cout << "1. Andar por ai\n";
+        cout << "\n1. Andar por ai\n";
         cout << "2. Descansar\n";
         cout << "3. treinar\n\n";
         
@@ -203,7 +222,7 @@ void moving(Protagonist &protagonist, Piece &piece) {
                 } else {
                     cout << "Voce encontrou um item!\n";
                     sleep(1);
-                    int item = rand() % 10 + 1;
+                    int item = rand() % 7 + 1;
                     protagonist.damage += item;
                     cout << "seu dano aumentou em " << item;
                     sleep(2);
@@ -222,6 +241,20 @@ void moving(Protagonist &protagonist, Piece &piece) {
                 cout << "treinando...\n";
                 break;
         }
+}
+
+void dialog(Protagonist &protag, Piece &piec, string dial){
+    string name;
+    cout << "Nome: " << protag.name << "        |       Nome da peca: " << piec.name << "\nNivel: " << protag.level << "          |       Nivel da peca: " << piec.level 
+        << "\nVida: " << protag.health << "         |       Vida da peca: " << piec.health;
+
+    cout << "\n\n" << dial << endl;
+
+    sleep(3);
+    cout << "precione qualquer tecla e depois enter para continuar";
+
+    cin >> name;
+    cout << "\x1B[2J\x1B[H";
 }
 
 int main(){
@@ -283,16 +316,38 @@ int main(){
 
     Piece allPieces[14] = {paw1, paw2, paw3, paw4, paw5, paw6, paw7, paw8, bishop1, bishop2, knight1, knight2, rook1, rook2};
     
-    
+    /*
     bool final;
     do{
         final = true;
         int j;
         do{
             j  = rand() % 14;
-        } while(allPieces[j].health < 0);
+        } while(allPieces[j].health <= 0);
         
         moving(protagonist, allPieces[j]);
+
+        if(allPieces[0].health <= 0 && allPieces[1].health <= 0 && allPieces[2].health <= 0 && allPieces[3].health <= 0 
+        && allPieces[4].health <= 0 && allPieces[5].health <= 0 && allPieces[6].health <= 0 && allPieces[7].health <= 0 
+        && allPieces[8].health <= 0 && allPieces[9].health <= 0 && allPieces[10].health <= 0 && allPieces[11].health <= 0
+        && allPieces[12].health <= 0 && allPieces[13].health <= 0){
+            final = false;
+        }
     } while(final);
+
+    */
+
+    cout << "Parabens! voce conseguiu derrotar todas as pecas brancas!\n";
+    cout << "Agora só resta subir o castelo onde o rei esta\n";
+    cout << "voce sobre toda a escadaria e la esta ele, O Rei Branco\n";
+
+    cout << "\x1B[2J\x1B[H";
+
+    dialog(protagonist, king, "Eu: (Entrando na sala do trono, espadas em maos) Finalmente, estamos cara a cara, depois de todo o sangue que derramei para chegar ate aqui.");
+    dialog(protagonist, king, "Rei Branco: (Com um olhar calmo, mas cansado) Voce veio para vingar o que perdi, nao e? Seu trono, sua gloria... sua honra. Mas me diga, valeu a pena o caminho de destruicao ate aqui?");
+    dialog(protagonist, king, "Eu: Cada passo, cada batalha. Eu vim terminar o que voce começou quando tomou meu reino e massacrou meu povo.");
+    dialog(protagonist, king, "Rei Branco: (Se levantando do trono, sem empunhar armas) E agora voce esta diante de sua vinganca. Mas antes de empunhar sua espada contra mim, considere o que realmente deseja. Morte? Justica? Ou apenas o fim deste ciclo de odio?");
+    dialog(protagonist, king, "Rei Derrotado: Suas palavras sao vazias. Você não merece misericordia.");
+    dialog(protagonist, king, "Rei Inimigo: Talvez. Mas pense no que vem depois. Mate-me, e você se tornara o monstro que jurei derrotar. Poupe-me, e talvez possamos encontrar um caminho melhor... ou faca algo inesperado e una forcas contra um inimigo maior que ambos.");
 
 }
