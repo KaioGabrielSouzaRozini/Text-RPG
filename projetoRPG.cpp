@@ -340,14 +340,51 @@ int main(){
     cout << "Parabens! voce conseguiu derrotar todas as pecas brancas!\n";
     cout << "Agora só resta subir o castelo onde o rei esta\n";
     cout << "voce sobre toda a escadaria e la esta ele, O Rei Branco\n";
+    cout << "Mas espere, algo esta errado, voce sente um calafrio subindo pela sua espinha, seus batimentos aceleram, voce sente como se estivesse prestes a morrer e entao...\n";
+    cout << "Das sombras surje...\n";
+    cout << "A Rainha Branca!";
 
-    cout << "\x1B[2J\x1B[H";
+    combatStats(protagonist, queen);
 
-    dialog(protagonist, king, "Eu: (Entrando na sala do trono, espadas em maos) Finalmente, estamos cara a cara, depois de todo o sangue que derramei para chegar ate aqui.");
-    dialog(protagonist, king, "Rei Branco: (Com um olhar calmo, mas cansado) Voce veio para vingar o que perdi, nao e? Seu trono, sua gloria... sua honra. Mas me diga, valeu a pena o caminho de destruicao ate aqui?");
-    dialog(protagonist, king, "Eu: Cada passo, cada batalha. Eu vim terminar o que voce começou quando tomou meu reino e massacrou meu povo.");
-    dialog(protagonist, king, "Rei Branco: (Se levantando do trono, sem empunhar armas) E agora voce esta diante de sua vinganca. Mas antes de empunhar sua espada contra mim, considere o que realmente deseja. Morte? Justica? Ou apenas o fim deste ciclo de odio?");
-    dialog(protagonist, king, "Rei Derrotado: Suas palavras sao vazias. Você não merece misericordia.");
-    dialog(protagonist, king, "Rei Inimigo: Talvez. Mas pense no que vem depois. Mate-me, e você se tornara o monstro que jurei derrotar. Poupe-me, e talvez possamos encontrar um caminho melhor... ou faca algo inesperado e una forcas contra um inimigo maior que ambos.");
+    if(queen.health > 0){
+        cout << "A rainha era muito forte, voce se retira, mas entao o rei branco lhe para";
+    } else {
+        cout << "\x1B[2J\x1B[H";
 
+        dialog(protagonist, king, "Eu: (Entrando na sala do trono, espadas em maos) Finalmente, estamos cara a cara, depois de todo o sangue que derramei para chegar ate aqui.");
+        dialog(protagonist, king, "Rei Branco: (Com um olhar calmo, mas cansado) Voce veio para vingar o que perdi, nao e? Seu trono, sua gloria... sua honra. Mas me diga, valeu a pena o caminho de destruicao ate aqui?");
+        dialog(protagonist, king, "Eu: Cada passo, cada batalha. Eu vim terminar o que voce comecou quando tomou meu reino e massacrou meu povo.");
+        dialog(protagonist, king, "Rei Branco: (Se levantando do trono, sem empunhar armas) E agora voce esta diante de sua vinganca. Mas antes de empunhar sua espada contra mim, considere o que realmente deseja. Morte? Justica? Ou apenas o fim deste ciclo de odio?");
+        dialog(protagonist, king, "Eu: Não posso confiar em um ditador como voce");
+        dialog(protagonist, king, "Rei Branco: Talvez. Mas pense no que vem depois. Mate-me, e voce se tornara o monstro que jurei derrotar. Poupe-me, e talvez possamos encontrar um caminho melhor... ou faca algo inesperado e una forcas contra um inimigo maior que ambos.");
+
+        int choose;
+        cout << "1. Xeque-mate: Matar o rei branco\n"
+                "2. En passant: Exilar o rei branco\n"
+                "3. Draw: Perdoar o rei branco\n";
+
+        cin >> choose;
+
+        if(choose == 1){
+            cout << "Eu: Não há caminho melhor para nós. Hoje, você paga por tudo.\n\n";      
+            cout << "Rei Branco: (Sorriso amargo) Então este é o fim... Que minha morte pese sobre sua consciência para sempre.\n\n";
+            cout << "Eu: (Atinge o rei inimigo com sua espada) Adeus, velho inimigo. Finalmente, meu reino está vingado.\n\n";
+            cout << "(O sangue do rei inimigo mancha o chão. O silêncio ecoa no salão do trono. O novo rei assume, mas em seu coração, a paz nunca virá. O ciclo de ódio continua, agora com ele no comando.)";
+              
+        } else if (choose == 2){
+            cout << "Eu: Não. Não matarei você. O ciclo de vingança termina aqui. Eu o exilo deste reino para nunca mais retornar.\n\n";
+            cout << "Rei Branco: (Olhos arregalados, incrédulo) Você... me poupa? Por quê?\n\n";
+            cout << "Eu: Porque não quero ser como você. Vou governar com justiça, algo que você jamais fez.\n\n";
+            cout << "Rei Branco: (Abaixando a cabeça) Talvez... talvez haja redenção para mim após tudo isso. Obrigado... por esta segunda chance.\n\n";
+            cout << "(O rei inimigo é exilado, e o novo governante é celebrado por sua sabedoria e misericórdia. Uma nova era de paz começa, guiada pela escolha inesperada do perdão.)";
+        } else {
+            cout << "Eu: Talvez tenha razão. A morte não é o caminho. Vamos pôr nossas diferenças de lado. Uma ameaça maior se aproxima, e nossos reinos precisam de paz.\n\n";
+            cout << "Rei Branco: (Surpreso) Você sugere... uma aliança? Após tudo o que fiz?\n\n";
+            cout << "Eu: Sim. Mas saiba que a confiança deve ser construída. Lute ao meu lado e prove seu valor.\n\n";
+            cout << "Rei Branco: (Com um aceno firme) Então que assim seja. Por nossos povos, lutaremos juntos.\n\n";
+            cout << "Unidos por uma causa comum, os dois antigos inimigos formam uma aliança inesperada. Juntos, enfrentam um inimigo ainda maior e, em sua vitória, estabelecem um novo capítulo de cooperação entre seus reinos.";
+        }
+    }
+
+    
 }
