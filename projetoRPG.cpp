@@ -239,6 +239,18 @@ void moving(Protagonist &protagonist, Piece &piece) {
                 break;
             case 3:
                 cout << "treinando...\n";
+                protagonist.damage += 1;
+                sleep(1);
+                cout << "Voce treinou muito e conseguiu melhorar suas habilidades de combate!\n";
+                sleep(1);
+                cout << "seu dano aumenta em 1"; 
+                sleep(2);
+                cout << "\x1B[2J\x1B[H";
+                break;
+            default:
+                cout << "Comando invalido!";
+                sleep(2);
+                cout << "\x1B[2J\x1B[H";
                 break;
         }
 }
@@ -262,6 +274,23 @@ int main(){
     setlocale(LC_ALL, "Portuguese_Brazil");
 
     srand(time(0));
+
+      string sla  =  "   _____ _                     ______                 _            \n"
+                     "  / ____| |                   |  ____|               (_)           \n"
+                     " | |    | |__   ___  ___ ___  | |__   _ __ ___  _ __  _ _ __ ___   \n"
+                     " | |    | '_ | / _ |/ __/ __| |  __| | '_ ` _ || '_ || | '__/ _ |  \n"
+                     " | |____| | | |  __/|__ |__ | | |____| | | | | | |_) | | | |  __/  \n"
+                     "  L ____|_| |_||___||___/___/ |______|_| |_| |_| .__/|_|_|  |___|  \n"
+                     "                                             | |                   \n"
+                     "                                             |_|                   \n";
+
+    cout << "Bem vindo ao meu RPG de Texto!";
+    sleep(1);
+    cout << "\x1B[2J\x1B[H";
+
+    cout << sla << endl;   
+    sleep(3);
+    cout << "\x1B[2J\x1B[H";                                     
     
     //Contando historia e criando personagem
     Protagonist protagonist;
@@ -316,7 +345,7 @@ int main(){
 
     Piece allPieces[14] = {paw1, paw2, paw3, paw4, paw5, paw6, paw7, paw8, bishop1, bishop2, knight1, knight2, rook1, rook2};
     
-    /*
+    
     bool final;
     do{
         final = true;
@@ -335,19 +364,27 @@ int main(){
         }
     } while(final);
 
-    */
+    
 
     cout << "Parabens! voce conseguiu derrotar todas as pecas brancas!\n";
-    cout << "Agora só resta subir o castelo onde o rei esta\n";
+    sleep(1);
+    cout << "Agora so resta subir o castelo onde o rei esta\n";
+    sleep(1);
     cout << "voce sobre toda a escadaria e la esta ele, O Rei Branco\n";
+    sleep(1);
     cout << "Mas espere, algo esta errado, voce sente um calafrio subindo pela sua espinha, seus batimentos aceleram, voce sente como se estivesse prestes a morrer e entao...\n";
+    sleep(1);
     cout << "Das sombras surje...\n";
+    sleep(1);
     cout << "A Rainha Branca!";
+    sleep(3);
+    cout << "\x1B[2J\x1B[H";
+
 
     combatStats(protagonist, queen);
 
     if(queen.health > 0){
-        cout << "A rainha era muito forte, voce se retira, mas entao o rei branco lhe para";
+        cout << "A rainha era muito forte, voce se retira, isolado e sem dignidade, voce jura voltar um dia e terminar oque comecou";
     } else {
         cout << "\x1B[2J\x1B[H";
 
@@ -382,7 +419,7 @@ int main(){
             cout << "Rei Branco: (Surpreso) Você sugere... uma aliança? Após tudo o que fiz?\n\n";
             cout << "Eu: Sim. Mas saiba que a confiança deve ser construída. Lute ao meu lado e prove seu valor.\n\n";
             cout << "Rei Branco: (Com um aceno firme) Então que assim seja. Por nossos povos, lutaremos juntos.\n\n";
-            cout << "Unidos por uma causa comum, os dois antigos inimigos formam uma aliança inesperada. Juntos, enfrentam um inimigo ainda maior e, em sua vitória, estabelecem um novo capítulo de cooperação entre seus reinos.";
+            cout << "Unidos por uma causa comum, os dois antigos inimigos formam uma aliança inesperada. Juntos estabelecem um novo capítulo de cooperação entre seus reinos.";
         }
     }
 
