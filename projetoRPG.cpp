@@ -353,29 +353,29 @@ int main(){
     Piece allPieces[14] = {paw1, paw2, paw3, paw4, paw5, paw6, paw7, paw8, bishop1, bishop2, knight1, knight2, rook1, rook2};
     
     
-    // //sistema de historia e combate
-    // bool final;
-    // do{
-    //     final = true;
-    //     int j;
-    //     do{
-    //         j  = rand() % 14;
-    //     } while(allPieces[j].health <= 0);
+    //sistema de historia e combate
+    bool final;
+    do{
+        final = true;
+        int j;
+        do{
+            j  = rand() % 14;
+        } while(allPieces[j].health <= 0);
         
-    //     if(protagonist.health <= 0){
-    //         final = false;
-    //     }
-    //     moving(protagonist, allPieces[j]);
-    //     if(protagonist.health <= 0){
-    //         final = false;
-    //     }
-    //     if(allPieces[0].health <= 0 && allPieces[1].health <= 0 && allPieces[2].health <= 0 && allPieces[3].health <= 0 
-    //     && allPieces[4].health <= 0 && allPieces[5].health <= 0 && allPieces[6].health <= 0 && allPieces[7].health <= 0 
-    //     && allPieces[8].health <= 0 && allPieces[9].health <= 0 && allPieces[10].health <= 0 && allPieces[11].health <= 0
-    //     && allPieces[12].health <= 0 && allPieces[13].health <= 0){
-    //         final = false;
-    //     }
-    // } while(final);
+        if(protagonist.health <= 0){
+            final = false;
+        }
+        moving(protagonist, allPieces[j]);
+        if(protagonist.health <= 0){
+            final = false;
+        }
+        if(allPieces[0].health <= 0 && allPieces[1].health <= 0 && allPieces[2].health <= 0 && allPieces[3].health <= 0 
+        && allPieces[4].health <= 0 && allPieces[5].health <= 0 && allPieces[6].health <= 0 && allPieces[7].health <= 0 
+        && allPieces[8].health <= 0 && allPieces[9].health <= 0 && allPieces[10].health <= 0 && allPieces[11].health <= 0
+        && allPieces[12].health <= 0 && allPieces[13].health <= 0){
+            final = false;
+        }
+    } while(final);
 
     
     if(protagonist.health <= 0) {
@@ -396,8 +396,7 @@ int main(){
         cout << "\x1B[2J\x1B[H";
 
 
-        //combatStats(protagonist, queen);
-        queen.health = -100;
+        combatStats(protagonist, queen);
 
         //Finais
         if(queen.health > 0){
@@ -409,7 +408,7 @@ int main(){
             dialog(protagonist, king, "Rei Branco: (Com um olhar calmo, mas cansado) Voce veio para vingar o que perdi, nao e? Seu trono, sua gloria... sua honra. Mas me diga, valeu a pena o caminho de destruicao ate aqui?");
             dialog(protagonist, king, "Eu: Cada passo, cada batalha. Eu vim terminar o que voce comecou quando tomou meu reino e massacrou meu povo.");
             dialog(protagonist, king, "Rei Branco: (Se levantando do trono, sem empunhar armas) E agora voce esta diante de sua vinganca. Mas antes de empunhar sua espada contra mim, considere o que realmente deseja. Morte? Justica? Ou apenas o fim deste ciclo de odio?");
-            dialog(protagonist, king, "Eu: Não posso confiar em um ditador como voce");
+            dialog(protagonist, king, "Eu: Nao posso confiar em um ditador como voce");
             dialog(protagonist, king, "Rei Branco: Talvez. Mas pense no que vem depois. Mate-me, e voce se tornara o monstro que jurei derrotar. Poupe-me, e talvez possamos encontrar um caminho melhor... ou faca algo inesperado e una forcas contra um inimigo maior que ambos.");
 
             int choose;
@@ -420,34 +419,34 @@ int main(){
             cin >> choose;
 
             if(choose == 1){
-                cout << "Eu: Não há caminho melhor para nós. Hoje, você paga por tudo.\n\n";
+                cout << "Eu: Nao ha caminho melhor para nos. Hoje, voce paga por tudo.\n\n";
                 sleep(5);
-                cout << "Rei Branco: (Sorriso amargo) Então este é o fim... Que minha morte pese sobre sua consciência para sempre.\n\n";
+                cout << "Rei Branco: (Sorriso amargo) Entao este e o fim... Que minha morte pese sobre sua consciencia para sempre.\n\n";
                 sleep(5);
-                cout << "Eu: (Atinge o rei inimigo com sua espada) Adeus, velho inimigo. Finalmente, meu reino está vingado.\n\n";
+                cout << "Eu: (Atinge o rei branco com sua espada) Adeus, velho inimigo. Finalmente, meu reino esta vingado.\n\n";
                 sleep(5);
-                cout << "(O sangue do rei inimigo mancha o chão. O silêncio ecoa no salão do trono. O novo rei assume, mas em seu coração, a paz nunca virá. O ciclo de ódio continua, agora com ele no comando.)";
+                cout << "(O sangue do rei branco mancha o cho. O silêncio ecoa no salão do trono. O novo rei assume, mas em seu coração, a paz nunca vira. O ciclo de odio continua, agora com ele no comando.)";
                 
             } else if (choose == 2){
-                cout << "Eu: Não. Não matarei você. O ciclo de vingança termina aqui. Eu o exilo deste reino para nunca mais retornar.\n\n";
+                cout << "Eu: Nao. Nao matarei você. O ciclo de vinganca termina aqui. Eu o exilo deste reino para nunca mais retornar.\n\n";
                 sleep(5);
-                cout << "Rei Branco: (Olhos arregalados, incrédulo) Você... me poupa? Por quê?\n\n";
+                cout << "Rei Branco: (Olhos arregalados, incredulo) Voce... me poupa? Por que?\n\n";
                 sleep(5);
-                cout << "Eu: Porque não quero ser como você. Vou governar com justiça, algo que você jamais fez.\n\n";
+                cout << "Eu: Porque nao quero ser como você. Vou governar com justica, algo que você jamais fez.\n\n";
                 sleep(5);
-                cout << "Rei Branco: (Abaixando a cabeça) Talvez... talvez haja redenção para mim após tudo isso. Obrigado... por esta segunda chance.\n\n";
+                cout << "Rei Branco: (Abaixando a cabeca) Talvez... talvez haja redenção para mim apos tudo isso. Obrigado... por esta segunda chance.\n\n";
                 sleep(5);
-                cout << "(O rei inimigo é exilado, e o novo governante é celebrado por sua sabedoria e misericórdia. Uma nova era de paz começa, guiada pela escolha inesperada do perdão.)";
+                cout << "(O rei branco e exilado, e o novo governante e celebrado por sua sabedoria e misericordia. Uma nova era de paz começa, guiada pela escolha inesperada do perdao.)";
             } else {
-                cout << "Eu: Talvez tenha razão. A morte não é o caminho. Vamos pôr nossas diferenças de lado. Uma ameaça maior se aproxima, e nossos reinos precisam de paz.\n\n";
+                cout << "Eu: Talvez tenha razao. A morte nao e o caminho. Vamos por nossas diferencas de lado. Nossos reinos precisam de paz.\n\n";
                 sleep(5);
-                cout << "Rei Branco: (Surpreso) Você sugere... uma aliança? Após tudo o que fiz?\n\n";
+                cout << "Rei Branco: (Surpreso) Você sugere... uma alianca? Apos tudo o que fiz?\n\n";
                 sleep(5);
-                cout << "Eu: Sim. Mas saiba que a confiança deve ser construída. Lute ao meu lado e prove seu valor.\n\n";
+                cout << "Eu: Sim. Mas saiba que a confianca deve ser construida. Lute ao meu lado e prove seu valor.\n\n";
                 sleep(5);
-                cout << "Rei Branco: (Com um aceno firme) Então que assim seja. Por nossos povos, lutaremos juntos.\n\n";
+                cout << "Rei Branco: (Com um aceno firme) Entao que assim seja. Por nossos povos, lutaremos juntos.\n\n";
                 sleep(5);
-                cout << "Unidos por uma causa comum, os dois antigos inimigos formam uma aliança inesperada. Juntos estabelecem um novo capítulo de cooperação entre seus reinos.";
+                cout << "Unidos por uma causa comum, os dois antigos inimigos formam uma alianca inesperada. Juntos estabelecem um novo capitulo de cooperacao entre seus reinos.";
             }
         }
 
