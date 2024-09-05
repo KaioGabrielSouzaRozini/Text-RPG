@@ -17,6 +17,7 @@ class Protagonist {
     bool blocking;
     bool running;
     int xp;
+    int action;
 
     void setProtagonist(string newName) {
          name = newName;
@@ -27,6 +28,7 @@ class Protagonist {
          blocking = false;
          running = false;
          xp = 0;
+         action = 3;
      }
          
     void takeDamage(int damage){
@@ -209,7 +211,8 @@ void combatStats(Protagonist &protag, Piece &piec){
 void moving(Protagonist &protagonist, Piece &piece) {
     int choice;
     cout << "Nome: " << protagonist.name  << "\nNivel: " << protagonist.level
-        << "\nVida: " << protagonist.health <<  "\nDano: " << protagonist.damage << endl;
+        << "\nVida: " << protagonist.health <<  "\nDano: " << protagonist.damage 
+        << "\nAcoes: " << protagonist.action << endl;
     
         cout << "\n1. Andar por ai\n";
         cout << "2. Descansar\n";
@@ -226,6 +229,7 @@ void moving(Protagonist &protagonist, Piece &piece) {
                     cout << "Voce encontrou um inimigo!\n";
                     sleep(1);
                     combatStats(protagonist, piece);
+                    protagonist.action = 3;
                 } else {
                     cout << "Voce encontrou um item!\n";
                     sleep(1);
@@ -237,22 +241,36 @@ void moving(Protagonist &protagonist, Piece &piece) {
                 }
                 break;
             case 2:
+            if(protagonist.action <= 0) {
+                cout << "Voce precisa ir dar uma caminhada...";
+                sleep(3);
+                cout << "\x1B[2J\x1B[H";
+            } else {
                 cout << "Descansando...\n";
                 protagonist.heal();
+                protagonist.action -= 1;
                 sleep(1);
                 cout << "Voce se curou em " << protagonist.level * 20 << " pontos de vida\n";
                 sleep(2);
                 cout << "\x1B[2J\x1B[H";
+            }
                 break;
             case 3:
+            if(protagonist.action <= 0) {
+                cout << "Voce precisa ir dar uma caminhada...";
+                sleep(3);
+                cout << "\x1B[2J\x1B[H";
+            } else {
                 cout << "treinando...\n";
-                protagonist.damage += 1;
+                protagonist.damage += protagonist.level * 2;
+                protagonist.action -= 1;
                 sleep(1);
                 cout << "Voce treinou muito e conseguiu melhorar suas habilidades de combate!\n";
                 sleep(1);
-                cout << "seu dano aumenta em 1"; 
+                cout << "seu dano aumenta em " << protagonist.level * 2; 
                 sleep(2);
                 cout << "\x1B[2J\x1B[H";
+            }
                 break;
             default:
                 cout << "Comando invalido!";
@@ -285,7 +303,7 @@ int main(){
       string title  ="   _____ _                     ______                 _            \n"
                      "  / ____| |                   |  ____|               (_)           \n"
                      " | |    | |__   ___  ___ ___  | |__   _ __ ___  _ __  _ _ __ ___   \n"
-                     " | |    | '_ | / _ |/ __/ __| |  __| | '_ ` _ || '_ || | '__/ _ |  \n"
+                     " | |    | '_  |/ _ |/ __/ __| |  __| | '_ ` _ || '_ || | '__/ _ |  \n"
                      " | |____| | | |  __/|__ |__ | | |____| | | | | | |_) | | | |  __/  \n"
                      "  L ____|_| |_||___||___/___/ |______|_| |_| |_| .__/|_|_|  |___|  \n"
                      "                                             | |                   \n"
