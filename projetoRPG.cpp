@@ -227,7 +227,7 @@ void moving(Protagonist &protagonist, Piece &piece) {
             case 1:
                 cout << "Andando..." << endl;
                 sleep(2);
-                if(i >= 35){
+                if(i >= 31){
                     cout << "Voce encontrou um inimigo!\n";
                     sleep(1);
                     combatStats(protagonist, piece);
@@ -264,12 +264,12 @@ void moving(Protagonist &protagonist, Piece &piece) {
                 cout << "\x1B[2J\x1B[H";
             } else {
                 cout << "treinando...\n";
-                protagonist.damage += protagonist.level * 2;
+                protagonist.damage += 1 + protagonist.level * 1;
                 protagonist.action -= 1;
                 sleep(1);
                 cout << "Voce treinou muito e conseguiu melhorar suas habilidades de combate!\n";
                 sleep(1);
-                cout << "seu dano aumenta em " << protagonist.level * 2; 
+                cout << "seu dano aumenta em " << 1 + protagonist.level * 1; 
                 sleep(2);
                 cout << "\x1B[2J\x1B[H";
             }
@@ -362,11 +362,11 @@ int main(){
     
     setPieces(paws, "Peao",  1, 10, 5, 1, 1);
     
-    setPieces(bishops, "Bispo", 3, 100, 30, 50, 0);
-    setPieces(knights, "Cavalo", 3, 50, 30, 50, 30);
-    setPieces(rooks, "Torre", 5, 80, 40, 100, 40);
+    setPieces(bishops, "Bispo", 3, 100, 30, 70, 0);
+    setPieces(knights, "Cavalo", 3, 50, 30, 70, 30);
+    setPieces(rooks, "Torre", 5, 80, 40, 120, 40);
 
-    queen.setPiece("Rainha", 99, 700, 180);
+    queen.setPiece("Rainha", 99, 800, 180);
 
     king.setPiece("Rei", 99, 1, 1);
 
