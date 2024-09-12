@@ -51,8 +51,8 @@ class Protagonist {
         
         if(xp >= 100){
             level += 1;
-            maxHealth += 30;
-            health += 30;
+            maxHealth += 50;
+            health += 50;
             if(xp == 150){
                 xp = 50;
             } else {
@@ -227,7 +227,7 @@ void moving(Protagonist &protagonist, Piece &piece) {
             case 1:
                 cout << "Andando..." << endl;
                 sleep(2);
-                if(i >= 30){
+                if(i >= 35){
                     cout << "Voce encontrou um inimigo!\n";
                     sleep(1);
                     combatStats(protagonist, piece);
@@ -366,7 +366,7 @@ int main(){
     setPieces(knights, "Cavalo", 3, 50, 30, 50, 30);
     setPieces(rooks, "Torre", 5, 80, 40, 100, 40);
 
-    queen.setPiece("Rainha", 99, 700, 200);
+    queen.setPiece("Rainha", 99, 700, 180);
 
     king.setPiece("Rei", 99, 1, 1);
 
