@@ -18,6 +18,7 @@ class Protagonist {
     bool running;
     int xp;
     int action;
+    bool pawHelp;
 
     void setProtagonist(string newName) {
          name = newName;
@@ -29,6 +30,7 @@ class Protagonist {
          running = false;
          xp = 0;
          action = 3;
+         pawHelp = false;
      }
          
     void takeDamage(int damage){
@@ -364,13 +366,35 @@ int main(){
     setPieces(knights, "Cavalo", 3, 50, 30, 50, 30);
     setPieces(rooks, "Torre", 5, 80, 40, 100, 40);
 
-    queen.setPiece("Rainha", 99, 500, 200);
+    queen.setPiece("Rainha", 99, 700, 200);
 
     king.setPiece("Rei", 99, 1, 1);
 
     Piece allPieces[14] = {paw1, paw2, paw3, paw4, paw5, paw6, paw7, paw8, bishop1, bishop2, knight1, knight2, rook1, rook2};
     
+    int help;
+    cout << "antes de comecar sua jornada, voce percebe um pequeno peao preto caido nos escombros, ele ainda nao morreu\n";
+    sleep(1);
+    cout << "peao: meu rei por favor acabe com meu sofrimento...\n";
+    sleep(1);
+    cout << "1. ajudar o peao\n"
+            "2. executar o peao";
+    cin >> help;
+    if(help == 1){
+        cout << "voce o ajuda, cuida de seus ferimentos e o carrega por uma longa distancia até um lugar seguro,\n"
+                "ele lhe agradece muito pela ajuda e jura o recompensar,\n";
+                sleep(3);
+        cout << "infelizmente durante o caminho voce se cansa, acaba caindo e se machuca diversas vezes, voce perde 40 de vida";
+        protagonist.takeDamage(40);
+        protagonist.pawHelp = true;
+    } else if(help == 2){
+        cout << "voce corta a cabeça do peao, com o sangue em suas mãos voce jura vingalo em sua jornada...";
+    } else {
+        cout << "voce o deixa ali e segue em frente...";
+    }
     
+    sleep(5);
+    cout << "\x1B[2J\x1B[H";
     //sistema de historia e combate
     bool final;
     do{
@@ -413,7 +437,26 @@ int main(){
         sleep(5);
         cout << "\x1B[2J\x1B[H";
 
-
+        sleep(2);
+        
+        if(protagonist.pawHelp){
+            cout << "Mestre!\n"
+                    "Eu voltei para lhe ajudar!\n"
+                    "com um furioso golpe em um ponto vital da rainha Branca o pequeno a acerta causando 200 de dano!\n\n";
+            sleep(2);
+            cout << "Logo em seguida a rainha se vira e o acerta em cheio, o pequeno peao cai...\n";
+            cout << "voce tenta o ajudar mas ele esta quase morto, ele entrega a sua espada e como suas palavras finais ele diz\n";
+            sleep(2);
+            cout << "VIDA LONGA AO REI!\n";
+            
+            sleep(3);
+            
+            cout << "A espada era super afiada e voce ganha 30 de ataque!";
+            sleep(4);
+            queen.health -= 200;
+            protagonist.damage += 30;
+        }
+        
         combatStats(protagonist, queen);
 
         //Finais
